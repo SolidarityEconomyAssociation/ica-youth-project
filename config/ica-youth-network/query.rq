@@ -11,12 +11,13 @@ PREFIX rov: <http://www.w3.org/ns/regorg#>
 PREFIX osspatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
 PREFIX : <https://w3id.solidarityeconomy.coop/ica-youth-network/>
 
-SELECT ?name ?uri ?lat ?lng ?street ?locality ?region ?postcode ?country ?within ?regorg ?www
+SELECT ?name ?uri ?lat ?lng ?street ?locality ?region ?postcode ?country ?within ?regorg ?www ?desc
 WHERE {
 	?uri rdf:type essglobal:SSEInitiative .
 	?uri gr:name ?name .
     ?uri essglobal:organisationalStructure ?regorg .
 	OPTIONAL { ?uri foaf:homepage ?www . }
+	OPTIONAL { ?uri dc:description ?desc . }
 	?uri essglobal:hasAddress ?addr .
 	OPTIONAL { ?addr vcard:street-address ?street . }
 	OPTIONAL { ?addr vcard:postal-code ?postcode . }

@@ -15,7 +15,7 @@
   },
   "author": "Solidarity Economy Association",
   "license": "UNLICENSED",
-  "repository": "github:SolidarityEconomyAssociation/ica-youth-network",
+  "repository": "github:SolidarityEconomyAssociation/ica-youth-project",
   "dependencies": {
     "sea-map": "SolidarityEconomyAssociation/sea-map#semver:^0.1.22"
   },
