@@ -1,7 +1,7 @@
 {
-  "name": "ica-youth-network",
+  "name": "ica-youth-project",
   "version": "0.1.0",
-  "description": "ICA youth coops project",
+  "description": "ICA youth network project",
   "main": "index.js",
   "config": {
     "deploy_to": "",
