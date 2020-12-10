@@ -7,7 +7,4 @@
   "filterableFields" : [{ "field": "country", "label": "Countries" }],
   "showDatasetsPanel" : true,
   "htmlTitle" : "Youth Network Map" 
-
-  // "initialBounds_comment": "The initial bounds of a newly loaded map",
-  // "initialBounds": [[40, -120], [-40, 120]]
 }
