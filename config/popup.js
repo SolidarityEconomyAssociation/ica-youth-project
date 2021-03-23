@@ -25,8 +25,6 @@ define(["model/sse_initiative"], function (sse_initiatives) {
             street,
             locality,
             postcode,
-            dotcoop =
-                initiative.dataset.includes("dotcoop"),
             popupHTML =
                 '<div class="sea-initiative-details">' +
                 '<h2 class="sea-initiative-name">{initiative.name}</h2>' +
@@ -39,7 +37,7 @@ define(["model/sse_initiative"], function (sse_initiatives) {
                 '<div class="sea-initiative-contact">' +
                 "<h3>Contact</h3>" +
                 "{initiative.address}" +
-                "{dotcoop.domains}" +
+                "{initiative.www}" +
                 "{initiative.tel}" +
                 '<div class="sea-initiative-links">' +
                 "{initiative.email}" +
@@ -123,12 +121,12 @@ define(["model/sse_initiative"], function (sse_initiatives) {
 
 
 
-        // All initiatives should have a description (this isn't true with dotcoop)
+        // All initiatives should have a description
         popupHTML = popupHTML.replace("{initiative.desc}", initiative.desc || "");
 
         // Not all orgs have a website
         popupHTML = popupHTML.replace(
-            "{dotcoop.domains}",
+            "{initiative.www}",
             initiative.www ? '<a href="' + initiative.www + '" target="_blank" >' + initiative.www + '</a>'
                 : ""
         );
