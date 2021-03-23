@@ -31,7 +31,6 @@ define(["model/sse_initiative"], function (sse_initiatives) {
                 '<h4 class="sea-initiative-org-structure">Structure Type: {initiative.org-structure}</h4>' +
                 '<h4 class="sea-initiative-org-typology">Typology: {initiative.baseMembershipType}</h4>' +
                 '<h4 class="sea-initiative-economic-activity">Economic Activity: {initiative.economic-activity}</h4>' +
-                '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
                 "<p>{initiative.desc}</p>" +
                 "</div>" +
                 '<div class="sea-initiative-contact">' +
@@ -81,28 +80,6 @@ define(["model/sse_initiative"], function (sse_initiatives) {
                 "Economic Activity: {initiative.economic-activity}",
                 ""
             );
-
-        }
-        if (initiative.activities && initiative.activities.length > 0) {
-            let repl = initiative.activities.map(AM => activitiesVerbose[AM]).join(", ");
-            popupHTML = popupHTML.replace(
-                "{initiative.secondary-activity}",
-                repl
-            );
-        }
-        //comment this out
-        else {
-            if (initiative.activity) {
-                popupHTML = popupHTML.replace(
-                    "{initiative.secondary-activity}",
-                    orgStructures[initiative.activity]
-                );
-            } else {
-                popupHTML = popupHTML.replace(
-                    "Secondary Activities: {initiative.secondary-activity}",
-                    ""
-                );
-            }
 
         }
 
