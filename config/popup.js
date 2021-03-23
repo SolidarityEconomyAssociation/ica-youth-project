@@ -29,7 +29,7 @@ define(["model/sse_initiative"], function (sse_initiatives) {
                 '<div class="sea-initiative-details">' +
                 '<h2 class="sea-initiative-name">{initiative.name}</h2>' +
                 '<h4 class="sea-initiative-org-structure">Structure Type: {initiative.org-structure}</h4>' +
-                '<h4 class="sea-initiative-org-typology">Typology: {initiative.org-baseMembershipType}</h4>' +
+                '<h4 class="sea-initiative-org-typology">Typology: {initiative.baseMembershipType}</h4>' +
                 '<h4 class="sea-initiative-economic-activity">Economic Activity: {initiative.economic-activity}</h4>' +
                 '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
                 "<p>{initiative.desc}</p>" +
@@ -109,13 +109,13 @@ define(["model/sse_initiative"], function (sse_initiatives) {
         // memberships 
         if (initiative.baseMembershipType) {
             popupHTML = popupHTML.replace(
-                "Typology: {initiative.org-baseMembershipType}",
+                "Typology: {initiative.baseMembershipType}",
                 "Typology: " + membershipsVerbose[initiative.baseMembershipType]
             )
         }
         else {
             popupHTML = popupHTML.replace(
-                "Typology: {initiative.org-baseMembershipType}", "Others"
+                "Typology: {initiative.baseMembershipType}", "Others"
             )
         }
 
