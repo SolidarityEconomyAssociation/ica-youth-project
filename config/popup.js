@@ -12,15 +12,19 @@ define(["model/sse_initiative"], function (sse_initiatives) {
     };
 
     var getPopup = function (initiative, sse_initiatives) {
-        const values = sse_initiatives.getVerboseValuesForFields()
-        let orgStructures = values["Structure Type"];
-        let activitiesVerbose = values["Economic Activities"];
-        let membershipsVerbose = values["Typology"];
-        membershipsVerbose["bmt:BMT10"] = "Consumer/User coops"
-        membershipsVerbose["bmt:BMT20"] = "Producer coops"
-        membershipsVerbose["bmt:BMT30"] = "Worker coops"
-        membershipsVerbose["bmt:BMT40"] = "Multi-stakeholder coops"
-        membershipsVerbose["bmt:BMT50"] = "Resident coops"
+	const mkTermLookup = (vocabUri) =>
+	    (termId) => sse_initiatives.getVocabTerm(vocabUri, termId);
+	const orgStructures = mkTermLookup('os:');
+	const activitiesVerbose = mkTermLookup('aci:');
+	const membershipsVerbose = mkTermLookup('bmt:');
+	/* This used to re-map English terms like so:
+           membershipsVerbose["bmt:BMT10"] = "Consumer/User coops"
+           membershipsVerbose["bmt:BMT20"] = "Producer coops"
+           membershipsVerbose["bmt:BMT30"] = "Worker coops"
+           membershipsVerbose["bmt:BMT40"] = "Multi-stakeholder coops"
+           membershipsVerbose["bmt:BMT50"] = "Resident coops"
+	   However, this cannot work with internationalisation as-is, so I've removed it.
+	 */
         let address = "",
             street,
             locality,
@@ -48,7 +52,7 @@ define(["model/sse_initiative"], function (sse_initiatives) {
         popupHTML = popupHTML.replace("{initiative.name}", initiative.name);
         // TODO Add org type
         if (!initiative.qualifier && initiative.orgStructure && initiative.orgStructure.length > 0) {
-            let repl = initiative.orgStructure.map(OS => orgStructures[OS]).join(", ");
+            let repl = initiative.orgStructure.map(orgStructures).join(", ");
             popupHTML = popupHTML.replace(
                 "{initiative.org-structure}",
                 repl
@@ -58,12 +62,12 @@ define(["model/sse_initiative"], function (sse_initiatives) {
             if (!initiative.qualifier && initiative.regorg) {
                 popupHTML = popupHTML.replace(
                     "{initiative.org-structure}",
-                    orgStructures[initiative.regorg]
+                    orgStructures(initiative.regorg)
                 );
             } else {
                 popupHTML = popupHTML.replace(
                     "Structure Type: {initiative.org-structure}",
-                    initiative.qualifier ? "Structure Type: " + activitiesVerbose[initiative.qualifier] : ""
+                    initiative.qualifier ? "Structure Type: " + activitiesVerbose(initiative.qualifier) : ""
                 );
             }
 
@@ -73,7 +77,7 @@ define(["model/sse_initiative"], function (sse_initiatives) {
 
             popupHTML = popupHTML.replace(
                 "{initiative.economic-activity}",
-                activitiesVerbose[initiative.primaryActivity]
+                activitiesVerbose(initiative.primaryActivity)
             );
         } else {
             popupHTML = popupHTML.replace(
@@ -87,7 +91,7 @@ define(["model/sse_initiative"], function (sse_initiatives) {
         if (initiative.baseMembershipType) {
             popupHTML = popupHTML.replace(
                 "Typology: {initiative.baseMembershipType}",
-                "Typology: " + membershipsVerbose[initiative.baseMembershipType]
+                "Typology: " + membershipsVerbose(initiative.baseMembershipType)
             )
         }
         else {
